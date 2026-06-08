@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShrinkGuard Twin AI | Predictive Shrinkage Intelligence for UK SME Retailers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --navy:#1B2B4B;
+  --navy-light:#2D4270;
+  --navy-dim:#152238;
+  --navy-dark:#0D1829;
+  --navy-deeper:#070E18;
+  --gold:#C9A84C;
+  --gold-light:#E8C97A;
+  --gold-dim:#A8893A;
+  --accent:#3A7BF7;
+  --nav-bg:#0D1829;
+  --footer-bg:#070E18;
+  --bg-white:#F5F7FA;
+  --bg-light:#EDF1F8;
+  --bg-section:#DCE4F2;
+  --text-dark:#0D1829;
+  --text-mid:#1B2B4B;
+  --text-muted:#4A5B7A;
+  --white:#FFFFFF;
+  --nav-h:72px;
+  --max-w:1200px;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --display:'Sora',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --ease-out:cubic-bezier(0,0,0.2,1);
+}
+body{font-family:var(--font);color:var(--text-dark);background:var(--bg-white);overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg-light);}
+::-webkit-scrollbar-thumb{background:var(--navy-light);border-radius:2px;}
+img{display:block;max-width:100%;}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;width:100%;height:var(--nav-h);background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,0.2);z-index:1000;display:flex;align-items:center;padding:0 clamp(16px,5vw,60px);justify-content:space-between;box-shadow:0 2px 24px rgba(7,14,24,0.6);}
+.nav-logo{font-family:var(--display);font-size:17px;font-weight:800;color:var(--white);letter-spacing:-0.3px;display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;flex-shrink:0;}
+.nav-logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--navy-light),var(--accent));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(58,123,247,0.35);border:1px solid rgba(201,168,76,0.3);}
+.nav-logo-icon svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1;}
+.nav-logo-text span{font-size:10px;font-family:var(--mono);font-weight:500;color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;margin-top:3px;opacity:0.85;}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.nav-links li button{background:none;border:none;color:rgba(255,255,255,0.85);font-size:11px;font-weight:600;padding:8px 14px;border-radius:7px;transition:all 0.22s var(--ease);cursor:pointer;font-family:var(--mono);letter-spacing:0.8px;text-transform:uppercase;position:relative;white-space:nowrap;}
+.nav-links li button:hover{color:#fff;background:rgba(201,168,76,0.12);}
+.nav-links li button.active{color:#fff;background:rgba(201,168,76,0.15);}
+.nav-links li button.active::after{content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:14px;height:2px;background:var(--gold);border-radius:2px;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-demo-nav{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy-dark);border:none;padding:9px 20px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.22s;font-family:var(--mono);letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;box-shadow:0 2px 10px rgba(201,168,76,0.35);}
+.btn-demo-nav:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,0.5);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;flex-shrink:0;}
+.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:0.3s;display:block;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-nav{display:none;position:fixed;top:var(--nav-h);left:0;width:100%;background:var(--navy-deeper);backdrop-filter:blur(20px);padding:12px 20px 20px;flex-direction:column;gap:2px;z-index:999;border-bottom:1px solid rgba(201,168,76,0.15);animation:slideDown 0.25s var(--ease-out);}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.mobile-nav.open{display:flex;}
+.mobile-nav button{background:none;border:none;color:rgba(255,255,255,0.8);font-size:13px;font-weight:600;padding:13px 12px;border-bottom:1px solid rgba(255,255,255,0.08);cursor:pointer;font-family:var(--mono);text-align:left;text-transform:uppercase;letter-spacing:1px;transition:color 0.2s,background 0.2s;border-radius:6px;}
+.mobile-nav button:hover{color:#fff;background:rgba(201,168,76,0.12);}
+.mobile-nav .mob-cta{margin-top:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy-dark);border:none;padding:13px;border-radius:8px;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--mono);}
+
+/* PAGE SYSTEM */
+.page{display:none;min-height:100vh;padding-top:var(--nav-h);}
+.page.active{display:block;animation:pgIn 0.35s var(--ease);}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* SECTION COMMONS */
+.label-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--navy-light);margin-bottom:14px;}
+.label-tag::before{content:'';width:20px;height:1px;background:var(--navy-light);}
+.label-tag-white{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px;}
+.label-tag-white::before{content:'';width:20px;height:1px;background:var(--gold);}
+.section-h2{font-family:var(--display);font-size:clamp(28px,3.5vw,52px);font-weight:800;line-height:1.1;letter-spacing:-0.8px;margin-bottom:10px;}
+.section-h2.dark{color:var(--text-dark);}
+.section-h2.white{color:var(--white);}
+.section-divider{width:56px;height:3px;margin:16px 0 28px;border-radius:2px;}
+.divider-blue{background:linear-gradient(90deg,var(--navy-light),transparent);}
+.divider-white{background:linear-gradient(90deg,var(--gold),transparent);}
+.para-dark{color:var(--text-mid);line-height:1.85;font-size:17px;}
+.para-light{color:rgba(255,255,255,0.85);line-height:1.85;font-size:17px;}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 clamp(16px,4vw,60px);}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--navy-light),var(--navy-dark));color:var(--white);padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:0.8px;text-transform:uppercase;transition:all 0.25s;font-family:var(--mono);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(27,43,75,0.35);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(27,43,75,0.5);}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--navy-light);color:var(--navy-dark);padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:0.8px;text-transform:uppercase;transition:all 0.25s;font-family:var(--mono);background:none;cursor:pointer;}
+.btn-secondary:hover{background:rgba(27,43,75,0.07);}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy-dark);padding:13px 28px;border-radius:8px;font-weight:700;font-size:12px;letter-spacing:0.8px;text-transform:uppercase;transition:all 0.25s;font-family:var(--mono);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,0.3);}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,0.5);}
+
+/* RISK BADGES */
+.risk-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;font-family:var(--mono);letter-spacing:0.5px;}
+.risk-navy{background:rgba(27,43,75,0.1);color:var(--navy-dim);border:1px solid rgba(27,43,75,0.22);}
+.risk-gold{background:rgba(201,168,76,0.12);color:var(--navy-dark);border:1px solid rgba(201,168,76,0.28);}
+.risk-green{background:rgba(16,185,129,0.1);color:#059669;border:1px solid rgba(16,185,129,0.25);}
+.risk-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+
+/* HERO */
+.hero{background:linear-gradient(140deg,#EDF1F8 0%,#DCE4F2 40%,#C8D5EA 100%);padding:clamp(60px,10vw,100px) 0 clamp(50px,8vw,80px);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(27,43,75,0.1) 0%,transparent 70%);}
+.hero-inner{max-width:var(--max-w);margin:0 auto;padding:0 clamp(16px,4vw,60px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(27,43,75,0.1);border:1px solid rgba(27,43,75,0.25);border-radius:30px;padding:6px 16px;font-family:var(--mono);font-size:10px;font-weight:700;color:var(--navy-dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:22px;}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+h1{font-family:var(--display);font-size:clamp(34px,5vw,64px);font-weight:800;line-height:1.06;letter-spacing:-1.5px;color:var(--text-dark);margin-bottom:6px;}
+h1 .navy{color:var(--navy-light);}
+h1 .gold{color:var(--gold-dim);}
+.hero-rule{width:48px;height:3px;background:linear-gradient(90deg,var(--navy-light),var(--gold));border-radius:2px;margin:20px 0;}
+.hero-body{font-size:17px;color:var(--text-mid);line-height:1.8;margin-bottom:28px;max-width:540px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-mini-stats{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+.hero-mini-card{background:rgba(255,255,255,0.85);border:1px solid rgba(27,43,75,0.16);border-radius:12px;padding:14px 18px;min-width:140px;backdrop-filter:blur(8px);}
+.hero-mini-card strong{display:block;font-family:var(--display);font-size:22px;font-weight:800;color:var(--navy-dark);}
+.hero-mini-card span{font-size:11px;color:var(--text-muted);font-family:var(--mono);}
+
+/* DASHBOARD CARD */
+.score-card{background:#fff;border-radius:18px;border:1px solid rgba(27,43,75,0.16);padding:24px;box-shadow:0 8px 40px rgba(13,24,41,0.12);}
+.score-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+.score-card-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.dashboard-title{font-family:var(--display);font-size:17px;font-weight:700;color:var(--text-dark);}
+.live-dot-wrap{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1.5px;}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 1.5s infinite;}
+.score-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(27,43,75,0.07);}
+.score-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;font-weight:700;flex-shrink:0;}
+.score-icon.navy-bg{background:rgba(27,43,75,0.1);color:var(--navy-dim);}
+.score-icon.gold-bg{background:rgba(201,168,76,0.15);color:var(--navy-dark);}
+.score-icon.green-bg{background:rgba(16,185,129,0.1);color:#059669;}
+.score-lbl{flex:1;font-size:12px;color:var(--text-muted);}
+.score-val{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text-dark);}
+.score-big{display:flex;align-items:center;gap:16px;margin-top:18px;padding:16px;background:linear-gradient(135deg,rgba(27,43,75,0.07),rgba(201,168,76,0.09));border-radius:12px;border:1px solid rgba(27,43,75,0.12);}
+.score-big-num{font-family:var(--display);font-size:42px;font-weight:800;color:var(--navy-light);line-height:1;}
+.score-big-info .label{font-size:13px;font-weight:700;color:var(--text-dark);}
+.score-big-info .sub{font-size:11px;color:var(--text-muted);margin-top:3px;font-family:var(--mono);}
+
+/* STATS STRIP */
+.section-blue{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy-deeper) 100%);padding:clamp(60px,8vw,96px) 0;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;}
+.stat-card{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:16px;padding:clamp(20px,3vw,30px);text-align:center;transition:transform 0.25s,border-color 0.25s;}
+.stat-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.4);}
+.stat-num{font-family:var(--display);font-size:clamp(28px,4vw,44px);font-weight:800;color:var(--gold);margin-bottom:10px;}
+.stat-lbl{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;}
+
+/* PLATFORM SECTION */
+.platform-section{background:var(--bg-white);padding:clamp(60px,8vw,96px) 0;}
+.platform-sub{max-width:760px;margin-bottom:44px;color:var(--text-mid);}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.platform-card{background:#fff;border:1px solid rgba(27,43,75,0.12);border-radius:18px;overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s;box-shadow:0 2px 12px rgba(13,24,41,0.06);}
+.platform-card:hover{border-color:rgba(27,43,75,0.3);box-shadow:0 12px 40px rgba(13,24,41,0.12);transform:translateY(-3px);}
+.platform-img-wrap{width:100%;height:180px;overflow:hidden;background:linear-gradient(135deg,var(--bg-light),var(--bg-section));position:relative;}
+.platform-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.platform-img-overlay{position:absolute;bottom:10px;left:12px;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:#fff;background:rgba(13,24,41,0.7);padding:4px 10px;border-radius:6px;}
+.platform-card .inner{padding:22px;}
+.element-badge{display:inline-block;background:rgba(27,43,75,0.09);color:var(--navy-dim);border-radius:6px;padding:3px 10px;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;border:1px solid rgba(27,43,75,0.16);}
+.platform-card h3{font-family:var(--display);font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:10px;line-height:1.3;}
+.platform-card p{font-size:13px;color:var(--text-muted);line-height:1.75;}
+.more-text{display:none;font-size:13px;color:var(--text-muted);line-height:1.75;margin-top:10px;padding-top:10px;border-top:1px solid rgba(27,43,75,0.08);}
+.platform-card.open .more-text{display:block;}
+.expand-btn{margin-top:16px;background:none;border:1px solid rgba(27,43,75,0.22);color:var(--navy-dim);padding:7px 18px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--mono);letter-spacing:0.8px;text-transform:uppercase;transition:all 0.2s;}
+.expand-btn:hover{background:rgba(27,43,75,0.07);border-color:var(--navy-light);}
+
+/* WHY SECTION */
+.why-section{background:var(--bg-light);padding:clamp(60px,8vw,96px) 0;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px;}
+.why-card{background:#fff;border:1px solid rgba(27,43,75,0.12);border-radius:16px;padding:clamp(20px,3vw,30px);transition:border-color 0.25s,box-shadow 0.25s;}
+.why-card:hover{border-color:rgba(27,43,75,0.3);box-shadow:0 8px 28px rgba(13,24,41,0.1);}
+.why-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(27,43,75,0.1),rgba(201,168,76,0.13));display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;color:var(--navy-light);border:1px solid rgba(27,43,75,0.15);}
+.why-card h4{font-family:var(--display);font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:10px;}
+.why-card p{font-size:13px;color:var(--text-muted);line-height:1.75;}
+
+/* SECTION LIGHT / ALT */
+.section-light{background:var(--bg-white);padding:clamp(60px,8vw,96px) 0;}
+.section-alt{background:var(--bg-light);padding:clamp(60px,8vw,96px) 0;}
+
+/* MARKET CHARTS */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:44px;}
+.chart-card{background:#fff;border:1px solid rgba(27,43,75,0.12);border-radius:18px;padding:24px;box-shadow:0 4px 16px rgba(13,24,41,0.06);}
+.chart-card h4{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.chart-card p{font-size:12px;color:var(--text-muted);margin-bottom:20px;font-family:var(--mono);}
+.chart-wrap{height:260px;position:relative;}
+
+/* ABOUT */
+.about-hero{background:linear-gradient(140deg,#DCE4F2 0%,#C8D5EA 60%,#A8BDD8 100%);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);position:relative;overflow:hidden;}
+.about-hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(27,43,75,0.12) 0%,transparent 70%);}
+.about-hero .container{position:relative;z-index:1;}
+.founders-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-top:44px;}
+.founder-card{background:#fff;border:1px solid rgba(27,43,75,0.12);border-radius:18px;padding:clamp(20px,3vw,36px);box-shadow:0 4px 20px rgba(13,24,41,0.08);}
+.founder-img{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--navy-light),var(--navy-dark));display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:24px;font-weight:800;color:#fff;margin-bottom:16px;}
+.founder-card h3{font-family:var(--display);font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+.founder-card .role{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy-dim);margin-bottom:14px;}
+.founder-card p{font-size:13px;color:var(--text-muted);line-height:1.8;}
+.founder-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.f-badge{background:rgba(27,43,75,0.07);border:1px solid rgba(27,43,75,0.16);border-radius:20px;padding:4px 12px;font-family:var(--mono);font-size:10px;color:var(--navy-dim);letter-spacing:0.5px;}
+
+/* FAQ */
+.faq-wrap{display:flex;flex-direction:column;gap:12px;margin-top:32px;}
+.faq-item{background:#fff;border:1px solid rgba(27,43,75,0.12);border-radius:14px;overflow:hidden;}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;cursor:pointer;gap:16px;}
+.faq-q h4{font-family:var(--display);font-size:15px;font-weight:600;color:var(--text-dark);}
+.faq-icon{font-size:20px;font-weight:300;color:var(--navy-light);flex-shrink:0;transition:transform 0.3s;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-body{display:none;padding:0 22px 18px;font-size:14px;color:var(--text-muted);line-height:1.8;border-top:1px solid rgba(27,43,75,0.07);}
+.faq-item.open .faq-body{display:block;}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px;}
+.price-card{background:#fff;border:1px solid rgba(27,43,75,0.12);border-radius:18px;padding:clamp(22px,3vw,36px);position:relative;transition:border-color 0.25s,box-shadow 0.25s,transform 0.25s;box-shadow:0 4px 16px rgba(13,24,41,0.06);}
+.price-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(13,24,41,0.14);}
+.price-card.featured{border:2px solid var(--navy-light);box-shadow:0 8px 40px rgba(27,43,75,0.18);transform:scale(1.03);}
+.price-card.featured:hover{transform:scale(1.03) translateY(-4px);}
+.featured-label{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--navy-light),var(--navy-dark));color:#fff;padding:4px 18px;border-radius:20px;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;}
+.price-tier{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy-dim);margin-bottom:8px;}
+.price-title{font-family:var(--display);font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:12px;}
+.price-amount{font-family:var(--display);font-size:clamp(34px,4vw,48px);font-weight:800;color:var(--navy-dark);line-height:1;}
+.price-amount span{font-size:16px;font-weight:500;color:var(--text-muted);}
+.price-desc{font-size:13px;color:var(--text-muted);margin:12px 0 20px;line-height:1.6;}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.price-features li{font-size:13px;color:var(--text-mid);display:flex;align-items:flex-start;gap:8px;}
+.price-features li::before{content:'✓';color:var(--navy-light);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+/* PROCESS */
+.process-step{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);}
+.process-step:last-child{margin-bottom:0;}
+.step-num{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy-dim);margin-bottom:12px;}
+.step-h3{font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--text-dark);margin-bottom:16px;line-height:1.2;}
+.step-p{color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:18px;}
+.step-img{width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(27,43,75,0.12);overflow:hidden;box-shadow:0 8px 32px rgba(13,24,41,0.1);}
+.step-img img{width:100%;height:100%;object-fit:cover;}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+.contact-form{background:#fff;border:1px solid rgba(27,43,75,0.12);border-radius:20px;padding:clamp(24px,4vw,44px);box-shadow:0 4px 20px rgba(13,24,41,0.06);}
+.contact-form h3{font-family:var(--display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:10px;}
+.contact-form p{font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.7;}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:12px;font-weight:700;color:var(--text-mid);margin-bottom:6px;font-family:var(--mono);letter-spacing:0.5px;text-transform:uppercase;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:1.5px solid rgba(27,43,75,0.16);border-radius:10px;font-size:14px;font-family:var(--font);color:var(--text-dark);background:#fff;transition:border-color 0.2s,box-shadow 0.2s;outline:none;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--navy-light);box-shadow:0 0 0 3px rgba(27,43,75,0.1);}
+.form-group textarea{min-height:120px;resize:vertical;}
+.contact-info{display:flex;flex-direction:column;}
+.contact-info h3{font-family:var(--display);font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+.contact-info p{font-size:15px;color:var(--text-muted);line-height:1.7;margin-bottom:28px;}
+.contact-detail{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid rgba(27,43,75,0.07);}
+.contact-detail .icon{width:44px;height:44px;background:rgba(27,43,75,0.09);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--navy-light);flex-shrink:0;font-size:18px;}
+.contact-detail .text strong{display:block;font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:2px;}
+.contact-detail .text span{font-size:13px;color:var(--text-muted);}
+
+/* COMPARISON TABLE */
+.comp-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:40px;border-radius:16px;border:1px solid rgba(27,43,75,0.12);box-shadow:0 4px 16px rgba(13,24,41,0.06);}
+.comp-table{width:100%;border-collapse:collapse;background:#fff;}
+.comp-table th{background:linear-gradient(135deg,var(--navy-dark),var(--navy-deeper));color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:16px 18px;text-align:left;}
+.comp-table th:first-child{border-radius:16px 0 0 0;}
+.comp-table th:last-child{border-radius:0 16px 0 0;}
+.comp-table td{padding:14px 18px;font-size:13px;color:var(--text-mid);border-bottom:1px solid rgba(27,43,75,0.07);}
+.comp-table tr:last-child td{border-bottom:none;}
+.comp-table tr:hover td{background:rgba(27,43,75,0.02);}
+.comp-table td:first-child{font-weight:600;color:var(--text-dark);}
+.comp-table .yes{color:#059669;font-weight:700;}
+.comp-table .no{color:#94a3b8;font-weight:500;}
+.comp-table .highlight-col{background:rgba(27,43,75,0.04);}
+
+/* FOOTER */
+footer{background:var(--footer-bg);padding:clamp(48px,6vw,80px) 0 0;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand{font-family:var(--display);font-size:22px;font-weight:800;color:#fff;margin-bottom:14px;}
+.footer-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8;margin-bottom:20px;}
+.footer-badges{display:flex;flex-wrap:wrap;gap:8px;}
+.footer-badge{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.22);border-radius:20px;padding:4px 12px;font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.8);letter-spacing:0.5px;}
+.footer-col-title{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px;}
+.footer-col{display:flex;flex-direction:column;gap:10px;}
+.footer-col a{font-size:13px;color:rgba(255,255,255,0.65);cursor:pointer;transition:color 0.2s;text-decoration:none;}
+.footer-col a:hover{color:var(--gold);}
+.footer-bottom-bar{border-top:1px solid rgba(255,255,255,0.1);padding:20px 0;display:flex;align-items:center;justify-content:space-between;}
+.footer-bottom-bar p{font-size:12px;color:rgba(255,255,255,0.45);font-family:var(--mono);}
+.footer-bottom-bar p span{color:var(--gold);}
+.footer-bottom-links{display:flex;gap:20px;}
+.footer-bottom-links a{font-size:12px;color:rgba(255,255,255,0.5);cursor:pointer;font-family:var(--mono);transition:color 0.2s;text-decoration:none;}
+.footer-bottom-links a:hover{color:rgba(255,255,255,0.85);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .btn-demo-nav{display:none;}
+  .hero-inner{grid-template-columns:1fr;gap:40px;}
+  .hero-inner>div:last-child{display:none;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .platform-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .price-card.featured{transform:scale(1);}
+  .process-step{grid-template-columns:1fr;gap:28px;}
+  .step-img{aspect-ratio:16/9;}
+  .contact-wrap{grid-template-columns:1fr;}
+  .charts-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .footer-bottom-bar{flex-direction:column;align-items:flex-start;gap:10px;}
+  .footer-bottom-links{flex-wrap:wrap;gap:12px;}
+  [style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important;}
+  .addons-grid{grid-template-columns:1fr !important;}
+}
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .btn-primary,.btn-secondary,.btn-gold{width:100%;justify-content:center;}
+  .footer-bottom-links{flex-direction:column;gap:8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  
+    <a class="nav-logo" onclick="showPage('home')">
+  <div class="nav-logo-text">
+    ShrinkGuard Twin AI
+    <span>Protect Margin. Not Just Merchandise.</span>
+  </div>
+</a>
+  <ul class="nav-links">
+    <li><button id="nav-home" class="active" onclick="showPage('home')">Home</button></li>
+    <li><button id="nav-about" onclick="showPage('about')">About</button></li>
+    <li><button id="nav-platform" onclick="showPage('platform')">Platform</button></li>
+    <li><button id="nav-market" onclick="showPage('market')">Market</button></li>
+    <li><button id="nav-process" onclick="showPage('process')">Process</button></li>
+    <li><button id="nav-faq" onclick="showPage('faq')">FAQ</button></li>
+    <li><button id="nav-pricing" onclick="showPage('pricing')">Pricing</button></li>
+    <li><button id="nav-contact" onclick="showPage('contact')">Contact</button></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-demo-nav" onclick="showPage('contact')">Request Demo</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button onclick="showPage('home');closeMobile()">Home</button>
+  <button onclick="showPage('about');closeMobile()">About</button>
+  <button onclick="showPage('platform');closeMobile()">Platform</button>
+  <button onclick="showPage('market');closeMobile()">Market</button>
+  <button onclick="showPage('process');closeMobile()">Process</button>
+  <button onclick="showPage('faq');closeMobile()">FAQ</button>
+  <button onclick="showPage('pricing');closeMobile()">Pricing</button>
+  <button onclick="showPage('contact');closeMobile()">Contact</button>
+  <button class="mob-cta" onclick="showPage('contact');closeMobile()">Request Demo →</button>
+</div>
+
+
+<!-- ═══════ PAGE: HOME ═══════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+     
+        <h1>Predict Loss.<br><span class="navy">Protect Margin.</span><span class="gold"> Precision, Not Panic.</span></h1>
+        <div class="hero-rule"></div>
+        <p class="hero-body">ShrinkGuard Twin AI is an AI-powered SaaS platform that builds a digital twin of your retail store, calculates margin-at-risk by product, zone and time window, and ranks every prevention action by its financial return  so every security decision is backed by real financial intelligence, not guesswork.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('contact')">Book a Platform Demo</button>
+          <button class="btn-secondary" onclick="showPage('platform')">Explore Platform</button>
+        </div>
+        
+      </div>
+      <div>
+        <div class="score-card">
+          <div class="score-card-top">
+            <div>
+              <div class="score-card-label">ShrinkGuard Twin AI · Live Engine</div>
+              <h3 class="dashboard-title">Margin-at-Risk Intelligence Dashboard</h3>
+            </div>
+            <div class="live-dot-wrap"><span class="live-dot"></span>LIVE</div>
+          </div>
+          <div class="score-row">
+            <div class="score-icon navy-bg">PZ</div>
+            <span class="score-lbl">Product–Zone–Time Risk Score</span>
+            <span class="score-val">HIGH · Zone C · 5–8pm ⚠</span>
+          </div>
+          <div class="score-row">
+            <div class="score-icon gold-bg">MAR</div>
+            <span class="score-lbl">Margin-at-Risk (Fri Evening)</span>
+            <span class="score-val">£3,200 Exposed ↑</span>
+          </div>
+          <div class="score-row">
+            <div class="score-icon green-bg">ROI</div>
+            <span class="score-lbl">Top Intervention ROI</span>
+            <span class="score-val">Reposition 6 SKUs ✓</span>
+          </div>
+          <div class="score-row">
+            <div class="score-icon navy-bg">LT</div>
+            <span class="score-lbl">Layout Risk Score (Blind Spot)</span>
+            <span class="score-val">High · Rear Aisle</span>
+          </div>
+          <div class="score-big">
+            <div class="score-big-num">529K</div>
+            <div class="score-big-info">
+              <div class="label">Shoplifting Offences England & Wales 2025</div>
+              <div class="sub">ShrinkGuard Twin AI · Predictive Defence · Active</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-blue">
+    <div class="container">
+      <div class="label-tag-white">The UK Retail Shrinkage Crisis</div>
+      <h2 class="section-h2 white">UK Retailers Are Losing Billions to Shrinkage <br>While Spending Blind on Prevention.</h2>
+      <div class="section-divider divider-white"></div>
+      <p class="para-light" style="max-width:760px;">UK shoplifting offences hit a record high since 2003. Retailers spend £1.2 billion a year on prevention  a 65% increase  yet stock keeps walking out. The problem isn't motivation or budget. It's the absence of a financially intelligent system that tells retailers exactly where their margin is at risk and which action delivers the highest return. ShrinkGuard Twin AI solves this.</p>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num">£4.2bn</div><div class="stat-lbl">Total annual UK retail crime cost including prevention spend  a market-ready budget with no intelligent allocation system</div></div>
+        <div class="stat-card"><div class="stat-num">529,994</div><div class="stat-lbl">Shoplifting offences in England & Wales to June 2025  the highest since records began in 2003</div></div>
+        <div class="stat-card"><div class="stat-num">£1.2bn</div><div class="stat-lbl">UK retailers' crime prevention spend 2022/23  a 65% rise in one year with no intelligent ROI system</div></div>
+        <div class="stat-card"><div class="stat-num">304K+</div><div class="stat-lbl">SME retail businesses in the UK with no dedicated loss prevention analyst  the entire target market</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="platform-section">
+    <div class="container">
+      <div class="label-tag">Six Patent-Pending Innovations</div>
+      <h2 class="section-h2 dark">Six Innovations. One Complete Shrinkage Intelligence Platform.</h2>
+      <div class="section-divider divider-blue"></div>
+      <p class="para-dark platform-sub">ShrinkGuard Twin AI combines a Margin-Weighted Risk Graph, Store Layout Digital Twin, Shrinkage Opportunity Score, Margin-at-Risk Engine, Intervention ROI Optimiser, and Selective Protection Recommender into one unified SaaS  no hardware needed, no specialist LP team required.</p>
+      <div class="platform-grid">
+
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="shrink1.jpg" alt="Retail store shelves risk scoring">
+            <div class="platform-img-overlay">Product–Zone–Time Risk Graph</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element A · Risk Graph</div>
+            <h3>Margin-Weighted Product–Zone–Time Shrinkage Risk Graph</h3>
+            <p>Dynamic 3D risk scoring across product, store zone, and trading time window  simultaneously weighing 6 factors including gross margin, exit proximity, and staff visibility.</p>
+            <div class="more-text">A premium jacket near the exit on a Friday evening rush carries vastly different financial risk from the same item at the till on Monday morning. ShrinkGuard Twin AI scores this in real time. No other retail LP or analytics product models this three-dimensional risk relationship. Built on Neo4j graph database for millisecond traversal of complex risk relationships.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="shrink2.jpg" alt="Retail store floor plan layout">
+            <div class="platform-img-overlay">Store Layout Digital Twin</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element B · Digital Twin</div>
+            <h3>Store Layout-to-Margin Leakage Digital Twin</h3>
+            <p>A virtual replica of your physical store where every zone, blind spot, fitting room, exit and shelf position carries a financial risk weight  not a footfall tool, a margin-leakage model.</p>
+            <div class="more-text">Built with PostGIS spatial geometry and NetworkX graph relationships. Measures structural theft opportunity even without incident history  critical for new stores. Draw your map in the browser in under 30 minutes. The system scores layout vulnerability from day one.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="shrink3.jpg" alt="Financial analytics and margin exposure">
+            <div class="platform-img-overlay">Margin-at-Risk Engine</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element D · MAR Engine</div>
+            <h3>Margin-at-Risk (MAR) Engine</h3>
+            <p>Restructures shrinkage as a probability-weighted financial exposure  telling retailers exactly how much gross margin is at risk by product, zone, and time period.</p>
+            <div class="more-text">Powered by XGBoost gradient boosting integrating theft probability, gross margin, zone risk weights, and time multipliers. Monte Carlo simulation provides a confidence range. Output: "£4,800 margin-at-risk between 4–8pm Friday, Zone C." A financially actionable number  not a vague risk rating.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <div class="container">
+      <div class="label-tag">Why ShrinkGuard Twin AI</div>
+      <h2 class="section-h2 dark">Built for Precision Retail Protection.<br>Not Just Another Security Dashboard.</h2>
+      <div class="section-divider divider-blue"></div>
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon"><i class="fas fa-chart-line"></i></div><h4>Predict Loss Before It Happens</h4><p>By product, zone, and time window, ShrinkGuard Twin AI predicts theft potential and enables retailers to act before a loss is recorded  shifting from reactive security to proactive margin protection.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-pound-sign"></i></div><h4>Turn Shrinkage Into a Financial Number</h4><p>The platform doesn't flag products as "high risk"  it tells retailers exactly how much gross margin is at stake, zone by zone, time period by time period, product category by product category.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-sort-amount-up"></i></div><h4>Rank Interventions by Return, Not Guesswork</h4><p>Every prevention option  tagging, staff repositioning, layout change, CCTV prioritisation  is ranked by its expected financial return before a penny is spent. Precision over coverage.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-store"></i></div><h4>Identify Layout Risk on Day One</h4><p>Even for brand-new stores with zero theft history, the digital twin scores layout vulnerabilities  blind spots, exit proximity, fitting room access  before any incident can occur.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-plug"></i></div><h4>No Hardware. CSV Upload. Live in Hours.</h4><p>Enterprise LP platforms require RFID infrastructure, large budgets, and specialist teams. ShrinkGuard Twin AI starts from a stock CSV, sales data, and a simple browser store map.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-shield-alt"></i></div><h4>Formally Confirmed Novel  Patent Pending</h4><p>A formal novelty search across global patent databases confirmed all six elements are novel. UK patent application filed. PCT international application in progress. No direct competitor exists.</p></div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end home -->
+
+
+<!-- ═══════ PAGE: ABOUT ═══════ -->
+<div class="page" id="page-about">
+  <section class="about-hero">
+    <div class="container">
+      <div class="label-tag">About Us</div>
+      <h2 class="section-h2 dark">Built by Someone Who Saw the Problem First-Hand.<br><span style="color:var(--navy-dark);">Designed to Protect SME Retail Margins.</span></h2>
+      <div class="section-divider divider-blue"></div>
+      <p class="para-dark" style="max-width:680px;margin-bottom:40px;">ShrinkGuard Twin AI is a UK-based B2B SaaS venture founded by Hassan Asghar  combining academic rigour in international business with direct observation of how smaller retailers react to shrinkage: reactively, inconsistently, and without any intelligent link between store layout, product placement, and financial loss.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('contact')">Get in Touch</button>
+        <button class="btn-secondary" onclick="showPage('platform')">Explore the Platform</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container">
+      <div class="label-tag">Core Values</div>
+      <h2 class="section-h2 dark">What Drives Everything We Build</h2>
+      <div class="section-divider divider-blue"></div>
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon"><i class="fas fa-crosshairs"></i></div><h4>Financial Precision</h4><p>Every recommendation is grounded in probability-weighted gross margin exposure  not vague risk scores. Retailers deserve commercially actionable intelligence, not black-box alerts.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-shield-alt"></i></div><h4>SME-First Design</h4><p>Helping independent and mid-market retailers protect the margins that larger enterprise platforms have always ignored  software-first, affordable, and deployable without a specialist LP team.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-bolt"></i></div><h4>Simplicity Without Compromise</h4><p>Powerful shrinkage intelligence delivered from a CSV upload and a simple store map. Retailers gain live risk outputs within hours  no hardware, no IT project, no waiting.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-lock"></i></div><h4>IP-Protected Innovation</h4><p>Six novel elements confirmed by formal patent search, UK patent application filed, PCT international filing in progress. The methodology is owned, protected, and defensible.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-balance-scale"></i></div><h4>Avoid Over-Security</h4><p>Over-investing in blanket security locks products, slows sales, and frustrates customers. ShrinkGuard Twin AI enables precision protection  tag only what needs tagging, guard only where it pays.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-globe"></i></div><h4>UK-Born, Globally Scalable</h4><p>Built from the ground up for UK SME retailers. Designed from the start to scale into Ireland, Australia, Canada, and Western Europe as retail crime pressures grow internationally.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <div class="label-tag">Founder</div>
+      <h2 class="section-h2 dark">The Person Behind ShrinkGuard Twin AI</h2>
+      <div class="section-divider divider-blue"></div>
+      <div class="founders-grid">
+        <div class="founder-card">
+          <div class="founder-img">HA</div>
+          <h3>Hassan Asghar</h3>
+          <div class="role">Founder & CEO </div>
+          <p>Hassan Asghar brings the commercial and analytical foundation required to take ShrinkGuard Twin AI from concept to a market-ready platform. His MSc in International Business from Ulster University (2024) and MBA from Mirpur University of Science and Technology (2020) equipped him with expertise in market analysis, business model design, financial planning, and operational strategy  all directly applied in the margin-at-risk methodology, the intervention ROI framework, and the platform's commercial roadmap.<br><br>He formulated the complete product concept, defined all six patent-pending innovations, commissioned the formal novelty search confirming global novelty, and built the full technical architecture of the platform across all ten modules. He directly observed how SME retailers experience shrinkage  reactively, without predictive tools, and without any connection between store layout and financial exposure  and designed ShrinkGuard Twin AI to fill exactly that gap. Hassan leads product direction, customer development, commercial strategy, and all UK market execution.</p>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end about -->
+
+
+<!-- ═══════ PAGE: PLATFORM ═══════ -->
+<div class="page" id="page-platform">
+  <section style="background:linear-gradient(140deg,#EDF1F8 0%,#DCE4F2 60%,#C8D5EA 100%);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);">
+    <div class="container">
+      <div class="label-tag">Full Platform</div>
+      <h2 class="section-h2 dark">Six Patent-Pending Innovations.<br><span style="color:var(--navy-dark);">One Predictive Shrinkage Command Centre.</span></h2>
+      <div class="section-divider divider-blue"></div>
+      <p class="para-dark" style="max-width:680px;margin-bottom:40px;">Every feature is built specifically for UK SME retailers  not adapted from enterprise tools. Our six novel elements integrate into a decision-intelligence system that delivers financial clarity over shrinkage for the first time in the SME market.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('contact')">Request Demo →</button>
+        <button class="btn-secondary" onclick="showPage('pricing')">View Pricing</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <div class="platform-grid" style="grid-template-columns:repeat(2,1fr);gap:28px;">
+
+        <div class="platform-card">
+          <div class="platform-img-wrap" style="height:220px;">
+            <img src="shrink4.jpg" alt="Retail store risk zone analysis" style="width:100%;height:100%;object-fit:cover;">
+            <div class="platform-img-overlay">Element A · Product–Zone–Time Risk Graph</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element A · Risk Graph</div>
+            <h3>Margin-Weighted Product–Zone–Time Shrinkage Risk Graph</h3>
+            <p>Dynamic 3D risk calculation across product, zone, and time window simultaneously  weighing product value, gross margin, store zone, exit proximity, staff visibility, and time-of-day patterns.</p>
+            <div class="more-text">Built in Neo4j graph database. This is the core innovation. No other retail LP product models risk in three dimensions. A premium trainer on the back wall during a Friday rush carries vastly different financial risk from the same item at checkout on Monday morning. ShrinkGuard Twin AI scores this dynamically.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-img-wrap" style="height:220px;">
+            <img src="shrink5.jpg" alt="Store layout digital twin mapping" style="width:100%;height:100%;object-fit:cover;">
+            <div class="platform-img-overlay">Element B · Store Layout Digital Twin</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element B · Digital Twin</div>
+            <h3>Store Layout-to-Margin Leakage Digital Twin</h3>
+            <p>Every structural element  entrance, exit, fitting room, blind spot, rear aisle, checkout  becomes a risk node carrying a financial exposure weight. Not a design twin. A margin-leakage model.</p>
+            <div class="more-text">Built with PostGIS spatial modelling and NetworkX graph relationships. Scores layout vulnerability even before any theft incident occurs  essential for new store openings. Draw your map in the browser in under 30 minutes. No CAD files, no specialist software needed.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-img-wrap" style="height:220px;">
+            <img src="shrink6.jpg" alt="Retail zone heatmap scoring" style="width:100%;height:100%;object-fit:cover;">
+            <div class="platform-img-overlay">Element C · Shrinkage Opportunity Score</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element C · Opportunity Score</div>
+            <h3>Layout-Derived Shrinkage Opportunity Score</h3>
+            <p>Measures structural theft opportunity independent of incident history  using exit proximity, staff visibility gaps, concealment potential, shelf height, and distance from staffed areas.</p>
+            <div class="more-text">A display can score high purely from its structural location  even if theft has never been recorded there. This provides accurate intelligence for SMEs with sparse or missing historical data. Confidence ranges produced by Monte Carlo simulation reflect data quality explicitly.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-img-wrap" style="height:220px;">
+            <img src="shrink7.jpg" alt="Financial margin exposure dashboard" style="width:100%;height:100%;object-fit:cover;">
+            <div class="platform-img-overlay">Element D · Margin-at-Risk Engine</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element D · MAR Engine</div>
+            <h3>Margin-at-Risk (MAR) Engine</h3>
+            <p>Integrates theft probability, gross margin, stock volume, zone risk weights, and time multipliers into a probability-weighted financial exposure score. A financial tool, not a risk alert.</p>
+            <div class="more-text">Powered by XGBoost gradient boosting. Facebook Prophet handles seasonal patterns  school holiday periods, promotional uplifts, payday cycles. Monte Carlo simulation outputs a confidence range: "£2,800–£4,100 across 10,000 scenarios." Not a false-precision single number. Commercially actionable intelligence.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-img-wrap" style="height:220px;">
+            <img src="shrink8.jpg" alt="ROI analysis and intervention ranking" style="width:100%;height:100%;object-fit:cover;">
+            <div class="platform-img-overlay">Element E · Intervention ROI Optimiser</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element E · ROI Optimiser</div>
+            <h3>Intervention-Level ROI Simulation</h3>
+            <p>Frames prevention as a constrained optimisation problem: given available interventions, costs, and budgets  find the mix that maximises protected margin. Powered by PuLP linear programming.</p>
+            <div class="more-text">The system might find it more cost-effective to reposition 8 high-exposure SKUs toward checkout than to tag an entire product category. Recommendations are store-specific, financially ranked, and account for operational burden and customer experience friction  not generic security advice.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-img-wrap" style="height:220px;">
+            <img src="shrink9.jpg" alt="Smart retail precision protection" style="width:100%;height:100%;object-fit:cover;">
+            <div class="platform-img-overlay">Element F · Selective Protection Recommender</div>
+          </div>
+          <div class="inner">
+            <div class="element-badge">Element F · Selective Protection</div>
+            <h3>Selective Protection Recommendation System</h3>
+            <p>Breaks away from blanket security. Calculates exactly which products, zones, and time windows justify protection spend based on predicted margin exposure.</p>
+            <div class="more-text">Instead of locking all cabinets or tagging all categories: "Tag these 12 SKUs. Staff Zone B from 5–7pm Saturday. Reposition this display closer to checkout." Precision over coverage. Maximise financial return on every prevention decision while minimising customer friction and unnecessary operational cost.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Competitor Comparison -->
+      <div style="margin-top:60px;">
+        <div class="label-tag">Competitor Analysis</div>
+        <h2 class="section-h2 dark" style="margin-bottom:8px;">How ShrinkGuard Twin AI Compares</h2>
+        <div class="section-divider divider-blue"></div>
+        <p class="para-dark" style="max-width:700px;margin-bottom:0;">No other platform integrates a predictive store layout digital twin, Product–Zone–Time risk modelling, margin-at-risk calculation, and ROI-ranked intervention selection in one place, accessible to SME retailers. Formally confirmed novel by patent search.</p>
+        <div class="comp-table-wrap">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th>Auror</th>
+                <th>Sensormatic</th>
+                <th>Checkpoint</th>
+                <th>Lightspeed/Vend</th>
+                <th>Zebra Analytics</th>
+                <th style="background:var(--navy-light);">ShrinkGuard Twin AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Predictive shrinkage digital twin</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes highlight-col">✓ Patent-Pending</td></tr>
+              <tr><td>Product–Zone–Time risk modelling</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes highlight-col">✓ 3D Risk Graph</td></tr>
+              <tr><td>Margin-at-Risk engine</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes highlight-col">✓ XGBoost MAR</td></tr>
+              <tr><td>Intervention ROI optimiser</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">Partial</td><td class="yes highlight-col">✓ PuLP Optimiser</td></tr>
+              <tr><td>Layout-derived opportunity scoring</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes highlight-col">✓ PostGIS Spatial</td></tr>
+              <tr><td>Software-first, no hardware</td><td class="yes">✓</td><td class="no">✗ Hardware</td><td class="no">✗ Hardware</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes highlight-col">✓ CSV Onboarding</td></tr>
+              <tr><td>SME-accessible pricing</td><td class="no">✗ Enterprise</td><td class="no">✗ £10K–£100K+</td><td class="no">✗ 5–6 figures</td><td class="yes">✓</td><td class="no">✗</td><td class="yes highlight-col">✓ From £99/mo</td></tr>
+              <tr><td>Formally confirmed novel by patent search</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes highlight-col">✓ Confirmed Novel</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end platform -->
+
+
+<!-- ═══════ PAGE: MARKET ═══════ -->
+<div class="page" id="page-market">
+  <section style="background:linear-gradient(140deg,#EDF1F8 0%,#DCE4F2 50%,#C8D5EA 100%);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);">
+    <div class="container">
+      <div class="label-tag">Market Analysis</div>
+      <h2 class="section-h2 dark">A £4.2 Billion Problem with No Intelligent Solution.<br><span style="color:var(--navy-dark);">ShrinkGuard Twin AI Fills the Gap.</span></h2>
+      <div class="section-divider divider-blue"></div>
+      <p class="para-dark" style="max-width:680px;margin-bottom:40px;">The UK retail sector reached £114.7 billion in economic output in 2024  4.4% of total UK GDP. With 304,560 retail businesses, the majority being SMEs with no dedicated loss-prevention analyst, and shoplifting at a 20-year high, ShrinkGuard Twin AI targets a massive, underserved segment with no direct competitor in the market.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('contact')">Request Demo →</button>
+        <button class="btn-secondary" onclick="showPage('pricing')">View Pricing</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <div class="label-tag">Market Data & Intelligence</div>
+      <h2 class="section-h2 dark">The Numbers Behind the Opportunity</h2>
+      <div class="section-divider divider-blue"></div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h4>UK SME Retail Market by Sector (Primary Target Segments)</h4>
+          <p>Estimated SME retail businesses across ShrinkGuard's primary target sectors</p>
+          <div class="chart-wrap"><canvas id="chartSector"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h4>UK Retail Crime Cost Distribution 2023/24  £4.2bn Total</h4>
+          <p>Annual cost breakdown: direct theft losses, security investment, insurance premiums</p>
+          <div class="chart-wrap"><canvas id="chartRootCause"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h4>ShrinkGuard Twin AI vs Competitors  Capability Radar</h4>
+          <p>Shrinkage intelligence capabilities across key dimensions vs existing market alternatives</p>
+          <div class="chart-wrap"><canvas id="chartRadar"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h4>UK Shoplifting Offences 2020–2025 (England & Wales)</h4>
+          <p>Recorded shoplifting offences  now at the highest level since records began in 2003</p>
+          <div class="chart-wrap"><canvas id="chartGrowth"></canvas></div>
+        </div>
+      </div>
+      <div class="charts-grid" style="grid-template-columns:1fr;margin-top:32px;">
+        <div class="chart-card">
+          <h4>Pilot Survey: Retailer Demand for ShrinkGuard Features (n=35 SME Retail Professionals)</h4>
+          <p>Feature interest % from 35 independent & SME retail professionals across London, Manchester and Birmingham</p>
+          <div class="chart-wrap"><canvas id="chartPerf"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-blue">
+    <div class="container">
+      <div class="label-tag-white">Financial Projections</div>
+      <h2 class="section-h2 white">3-Year Revenue Trajectory</h2>
+      <div class="section-divider divider-white"></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num">£81.8K</div><div class="stat-lbl">Year 1 Revenue · ~66 active paying customers · First revenue Month 4 · Partial commercial year · £50K founder equity launch</div></div>
+        <div class="stat-card"><div class="stat-num">£389.7K</div><div class="stat-lbl">Year 2 Revenue · ~173 customers · First full commercial year · £49,421 net profit · POS integrations launched</div></div>
+        <div class="stat-card"><div class="stat-num">£726.1K</div><div class="stat-lbl">Year 3 Revenue · ~310 customers · £109,283 net profit · National UK presence · Ireland international entry</div></div>
+        <div class="stat-card"><div class="stat-num">8–9</div><div class="stat-lbl">UK-based skilled tech, commercial and operational roles created by Year 3  development, ML, sales, marketing and customer success</div></div>
+      </div>
+    </div>
+  </section>
+</div><!-- end market -->
+
+
+<!-- ═══════ PAGE: PROCESS ═══════ -->
+<div class="page" id="page-process">
+  <section style="background:linear-gradient(140deg,#EDF1F8 0%,#DCE4F2 50%,#C8D5EA 100%);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);">
+    <div class="container">
+      <div class="label-tag">How It Works</div>
+      <h2 class="section-h2 dark">From Reactive Guesswork<br>to <span style="color:var(--navy-dark);">Predictive Margin Intelligence</span></h2>
+      <div class="section-divider divider-blue"></div>
+      <p class="para-dark" style="max-width:680px;margin-bottom:40px;">ShrinkGuard Twin AI operates as a closed-loop shrinkage intelligence lifecycle  ingesting, twinning, scoring, calculating, optimising, and recommending  so every loss-prevention decision is financially grounded and store-specific, not reactive guesswork applied uniformly.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('contact')">Request a Demo →</button>
+        <button class="btn-secondary" onclick="showPage('platform')">Explore Capabilities</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light" style="padding-top:clamp(60px,8vw,96px);">
+    <div class="container">
+      <div class="label-tag">The 6-Phase Shrinkage Intelligence Lifecycle</div>
+      <h2 class="section-h2 dark">A Complete Margin Protection Loop  Not Just a Risk Alert System</h2>
+      <div class="section-divider divider-blue"></div>
+
+      <div class="process-step">
+        <div>
+          <div class="step-num">Phase 01 · Ingest</div>
+          <h3 class="step-h3">Upload Your Data  No Hardware Required</h3>
+          <p class="step-p">ShrinkGuard Twin AI ingests your stock file, sales data, incident logs, staff rotas, and refund records via simple CSV upload. The data-ingestion layer uses Pandas and NumPy validation routines to clean, parse, and structure your data  handling missing values, format errors, and inconsistencies before any risk output is generated.</p>
+          <p class="step-p">No IT integration required in Phase 1. No RFID infrastructure. No POS API. Just the data retailers already hold, and a simple store map drawn in the browser in under 30 minutes.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-navy"><span class="risk-dot"></span>CSV Stock & Sales Upload</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Browser Store Map Input</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Zero Hardware Required</span>
+          </div>
+        </div>
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=700&q=80" alt="Data upload and retail analytics setup">
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=700&q=80" alt="Store layout digital twin mapping">
+        </div>
+        <div>
+          <div class="step-num">Phase 02 · Twin</div>
+          <h3 class="step-h3">Build Your Store's Digital Twin</h3>
+          <p class="step-p">The Store Layout Digital Twin Engine converts your floor plan into a spatial risk model using PostGIS geometry and NetworkX graph relationships. Every zone  entrance, exit, fitting room, blind spot, rear aisle, checkout  becomes a node with risk attributes: exit proximity, staff visibility, concealment potential, and incident density.</p>
+          <p class="step-p">This is not a retail design tool. It is a margin-leakage modelling environment that scores structural theft opportunity even before a single incident has occurred.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-navy"><span class="risk-dot"></span>PostGIS Spatial Modelling</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>NetworkX Zone Graph</span>
+            <span class="risk-badge risk-navy"><span class="risk-dot"></span>Day-One Risk Scoring</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div>
+          <div class="step-num">Phase 03 · Score</div>
+          <h3 class="step-h3">Calculate Product–Zone–Time Risk  Dynamically</h3>
+          <p class="step-p">The Neo4j-powered Product–Zone–Time Risk Graph connects every SKU to its store zone and time window. Risk is calculated across six simultaneous factors  product value, gross margin, zone location, exit proximity, staff visibility, and time-of-day patterns. Risk changes as conditions change. Frequently accessed scores are cached in Redis for sub-millisecond retrieval.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>6-Factor Dynamic Scoring</span>
+            <span class="risk-badge risk-navy"><span class="risk-dot"></span>Neo4j Graph Database</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Redis Real-Time Cache</span>
+          </div>
+        </div>
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=700&q=80" alt="Risk scoring analytics and heatmap">
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=700&q=80" alt="Financial margin exposure analysis">
+        </div>
+        <div>
+          <div class="step-num">Phase 04 · Calculate</div>
+          <h3 class="step-h3">Compute Margin-at-Risk  Financially</h3>
+          <p class="step-p">The XGBoost-powered Margin-at-Risk Engine integrates theft probability scores, gross margin data, stock volume, zone risk weights, and time-window multipliers into a probability-weighted financial exposure figure. Facebook Prophet handles seasonal and cyclical patterns  school holiday periods, promotional uplifts, payday cycles.</p>
+          <p class="step-p">Output: "£3,200 of margin-at-risk in Zone C between 5pm and 8pm on Friday." Not a risk rating. A financial number that demands a decision.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-navy"><span class="risk-dot"></span>XGBoost MAR Engine</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Prophet Forecasting</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Monte Carlo Confidence Range</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div>
+          <div class="step-num">Phase 05 · Optimise</div>
+          <h3 class="step-h3">Rank Interventions by Financial Return</h3>
+          <p class="step-p">The PuLP-powered Intervention ROI Optimiser frames prevention as a constrained optimisation problem: given available interventions  each with a cost, forecast margin reduction, and operational burden  find the mix that maximises protected margin within the retailer's constraints and budget. Results in seconds, not spreadsheet hours.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-navy"><span class="risk-dot"></span>PuLP Linear Optimisation</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Budget-Constrained Ranking</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Operational Burden Scoring</span>
+          </div>
+        </div>
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80" alt="Business intelligence and intervention ranking">
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=700&q=80" alt="Retail precision security recommendations">
+        </div>
+        <div>
+          <div class="step-num">Phase 06 · Recommend</div>
+          <h3 class="step-h3">Deliver Precision Recommendations  Stop Blanket Security</h3>
+          <p class="step-p">The Selective Protection Recommendation System outputs a specific, ranked action plan: which exact products to tag, which zones to staff at which times, which displays to reposition. Stop over-investing in blanket coverage. Start precision-protecting the margins that matter.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-navy"><span class="risk-dot"></span>SKU-Level Recommendations</span>
+            <span class="risk-badge risk-gold"><span class="risk-dot"></span>Zone & Time Prioritisation</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Weekly Action Plan Dashboard</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div><!-- end process -->
+
+
+<!-- ═══════ PAGE: FAQ ═══════ -->
+<div class="page" id="page-faq">
+  <section style="background:linear-gradient(140deg,#EDF1F8 0%,#DCE4F2 60%,#C8D5EA 100%);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);">
+    <div class="container">
+      <div class="label-tag">FAQ</div>
+      <h2 class="section-h2 dark">Frequently Asked Questions</h2>
+      <div class="section-divider divider-blue"></div>
+      <p class="para-dark" style="max-width:600px;">Everything you need to know about ShrinkGuard Twin AI and what it means for your retail store's margin protection, loss prevention decisions, and operational efficiency.</p>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container" style="max-width:840px;">
+      <div class="faq-wrap">
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>What is ShrinkGuard Twin AI and why does my store need it?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">ShrinkGuard Twin AI is a predictive shrinkage intelligence platform designed for UK independent and mid-market retailers with 1 to 20 stores. Unlike CCTV, RFID tagging, or incident management tools that only react after a loss, ShrinkGuard Twin AI predicts where theft will impact profitability before it happens  by product, zone, and time window. It constructs a virtual replica of your store, links it to your gross margin, and tells you exactly where your margin is at risk and which actions will protect the most at the lowest cost. For a retailer with £800,000 turnover and a 2% shrinkage rate, that's £16,000 per year recovered through precision decisions rather than blanket security spend.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>How quickly can we go live with the platform?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">Onboarding is deliberately lightweight. A new retailer moves from sign-up to first insight within days, not weeks. The process: upload your stock, sales, and incident data via CSV; draw your store map in the browser in under 30 minutes; the platform generates your first Risk Graph and Margin-at-Risk output within 24–48 hours. No hardware installation. No IT department involvement. No waiting on POS API approvals. You start with data you already hold. POS and inventory system integrations are introduced from Month 12 onwards to deepen accuracy, but they are never prerequisites for generating valuable shrinkage intelligence.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>How does the Product–Zone–Time Risk Graph work?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">The risk graph calculates a dynamic, three-dimensional risk score for every product-zone-time combination in your store. Six factors are evaluated simultaneously: product value, gross margin, store zone, exit proximity, staff visibility, and time-of-day and day-of-week patterns. Built in Neo4j  a native graph database  which enables millisecond traversal of complex risk relationships. A premium jacket near the exit on a Friday evening rush carries a very different risk score from the same item at the till on Monday morning. No other retail loss-prevention or analytics product models risk in this three-dimensional way.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>What is the Margin-at-Risk Engine and how is it different from a risk score?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">A risk score tells you a product is "high risk." The Margin-at-Risk Engine tells you that there is £4,800 of gross margin exposed in Zone C between 4pm and 8pm on Friday. It integrates theft probability, gross margin percentage, stock volume, zone risk weights, and time multipliers into a single probability-weighted financial exposure figure  powered by XGBoost gradient boosting. Monte Carlo simulation then generates a confidence range rather than a single-point estimate: "£2,800–£4,100 across 10,000 scenarios." It's a financial tool, not just a security alert system.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>Do we need to buy any hardware?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">No hardware is required to start. ShrinkGuard Twin AI is a software-only, cloud-hosted platform. Your existing stock records, sales data, and a browser-drawn store map are sufficient to generate risk intelligence from day one. Optional integrations with POS systems, inventory platforms, and CCTV metadata inputs deepen accuracy from Month 12 onwards, but are never prerequisites. The platform is specifically designed to work with data retailers already hold  not to create a new data collection infrastructure.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>What if my store has no theft incident history?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">ShrinkGuard Twin AI is specifically designed to provide meaningful output even without historical incident data  typical for SMEs. The Layout-Derived Shrinkage Opportunity Score measures structural risk based purely on layout factors: exit proximity, staff visibility gaps, concealment potential, shelf height, and distance from staffed areas. A display can score high purely from its structural location  even if theft has never been recorded there. Essential for new store openings. Monte Carlo confidence ranges explicitly reflect data quality, so you always know how much to rely on the output.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>What are the pricing tiers?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">ShrinkGuard Twin AI offers three SaaS subscription tiers: Starter at £99/month for single-store retailers (store layout twin, product risk scoring, basic margin-at-risk, dashboard); Professional at £299/month for single stores needing full capability (full platform including ROI optimiser, forecasting engine, shrinkage analytics layer); and Multi-store at £499 per store per month for retailers with 2–20 locations (all features plus multi-store benchmarking, priority support, integration access). A one-time setup fee of £300 covers store mapping, data import, and configuration. Annual billing at 15% discount available.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>Is ShrinkGuard Twin AI compliant with UK GDPR?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">Yes. ShrinkGuard Twin AI operates within UK GDPR and the Data Protection Act 2018 from day one. The platform works with operational retail data  stock records, sales transactions, staff rotas, refund data, and incident logs  not personal customer information. All data is stored on AWS infrastructure compliant with UK/EEA standards. Data Processing Agreements are signed with all customers before data upload. ICO registration completed in Month 1. All data at rest encrypted with AES-256, all data in transit via SSL/TLS, role-based access controls throughout. Cyber Essentials certification targeted in Year 1.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div><!-- end faq -->
+
+
+<!-- ═══════ PAGE: PRICING ═══════ -->
+<div class="page" id="page-pricing">
+  <section style="background:linear-gradient(140deg,#EDF1F8 0%,#DCE4F2 60%,#C8D5EA 100%);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);">
+    <div class="container">
+      <div class="label-tag">Pricing</div>
+      <h2 class="section-h2 dark">Transparent SaaS Pricing.<br><span style="color:var(--navy-dark);">ROI Validated from Month One.</span></h2>
+      <div class="section-divider divider-blue"></div>
+      <p class="para-dark" style="max-width:680px;">Every tier delivers measurable financial return  reducing unnecessary prevention spend, recovering margin from precision-targeted interventions, and giving retailers the financial clarity their business has never had. For an £800K turnover retailer with 2% shrinkage, the platform pays for itself within weeks.</p>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <div class="pricing-grid">
+
+        <div class="price-card">
+          <div class="price-tier">Tier 01</div>
+          <div class="price-title">Starter</div>
+          <div class="price-amount">£99<span>/month</span></div>
+          <p class="price-desc">Shrinkage intelligence for single-store independent retailers who need to start protecting margins without a specialist LP team.</p>
+          <ul class="price-features">
+            <li>Store layout twin (browser-mapped)</li>
+            <li>Product risk scoring by zone</li>
+            <li>Basic margin-at-risk output</li>
+            <li>Risk heatmap dashboard</li>
+            <li>CSV data ingestion</li>
+            <li>Top-10 high-risk SKU ranking</li>
+            <li>Weekly action summary report</li>
+          </ul>
+          <button class="btn-secondary" style="width:100%;justify-content:center;" onclick="showPage('contact')">Start Starter →</button>
+        </div>
+
+        <div class="price-card featured">
+          <div class="featured-label">Most Popular</div>
+          <div class="price-tier">Tier 02</div>
+          <div class="price-title">Professional</div>
+          <div class="price-amount">£299<span>/month</span></div>
+          <p class="price-desc">Full predictive shrinkage intelligence for single-store retailers who need the complete platform including ROI-ranked intervention recommendations.</p>
+          <ul class="price-features">
+            <li>Full Product–Zone–Time Risk Graph</li>
+            <li>Complete Margin-at-Risk Engine</li>
+            <li>Intervention ROI Optimiser</li>
+            <li>Forecasting engine (Prophet + XGBoost)</li>
+            <li>Shrinkage analytics layer</li>
+            <li>Refund & return anomaly detection</li>
+            <li>Customer experience constraint engine</li>
+            <li>Full dashboard v2 with action plans</li>
+          </ul>
+          <button class="btn-primary" style="width:100%;justify-content:center;" onclick="showPage('contact')">Start Professional →</button>
+        </div>
+
+        <div class="price-card">
+          <div class="price-tier">Tier 03</div>
+          <div class="price-title">Multi-Store</div>
+          <div class="price-amount">£499<span>/store/mo</span></div>
+          <p class="price-desc">All Professional features plus multi-store benchmarking and priority support for retailers operating 2–20 locations.</p>
+          <ul class="price-features">
+            <li>All Professional features included</li>
+            <li>Multi-store benchmarking dashboard</li>
+            <li>Cross-store margin-at-risk comparison</li>
+            <li>Priority customer success support</li>
+            <li>Integration access (POS, inventory)</li>
+            <li>Dedicated onboarding specialist</li>
+            <li>Annual account review & model refinement</li>
+          </ul>
+          <button class="btn-secondary" style="width:100%;justify-content:center;" onclick="showPage('contact')">Start Multi-Store →</button>
+        </div>
+
+      </div>
+
+      <div style="margin-top:56px;">
+        <div class="label-tag">Professional Services</div>
+        <h2 class="section-h2 dark" style="margin-bottom:8px;">One-Time Professional Services</h2>
+        <div class="section-divider divider-blue"></div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:32px;" class="addons-grid">
+          <div class="price-card">
+            <div class="price-tier">Service 01</div>
+            <div class="price-title">Platform Setup & Onboarding</div>
+            <div class="price-amount">£300<span> one-time</span></div>
+            <p class="price-desc">Complete store mapping, data import configuration, risk model calibration, and initial dashboard walkthrough  live in under a week.</p>
+            <ul class="price-features">
+              <li>Browser store map session (guided)</li>
+              <li>CSV data intake & validation setup</li>
+              <li>Initial risk model calibration</li>
+              <li>Dashboard training for store managers</li>
+            </ul>
+            <button class="btn-secondary" style="width:100%;justify-content:center;" onclick="showPage('contact')">Add Onboarding →</button>
+          </div>
+          <div class="price-card">
+            <div class="price-tier">Service 02</div>
+            <div class="price-title">Shrinkage Audit & Strategy Report</div>
+            <div class="price-amount">£500<span> one-time</span></div>
+            <p class="price-desc">Retrospective audit of stock discrepancy history, refund anomaly patterns, and layout vulnerabilities  with a written shrinkage reduction strategy report.</p>
+            <ul class="price-features">
+              <li>Historical incident & discrepancy review</li>
+              <li>Layout vulnerability assessment</li>
+              <li>Personalised shrinkage reduction strategy</li>
+              <li>Manager-level briefing session included</li>
+            </ul>
+            <button class="btn-secondary" style="width:100%;justify-content:center;" onclick="showPage('contact')">Add Audit →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end pricing -->
+
+
+<!-- ═══════ PAGE: CONTACT ═══════ -->
+<div class="page" id="page-contact">
+  <section style="background:linear-gradient(140deg,#0D1829 0%,#1B2B4B 60%,#2D4270 100%);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);">
+    <div class="container">
+      <div class="label-tag-white">Contact & Demo</div>
+      <h2 class="section-h2 white">Request a Platform Demo.<br>See ShrinkGuard Twin AI Live on Your Store Data.</h2>
+      <div class="section-divider divider-white"></div>
+      <p class="para-light" style="max-width:600px;">Our personalised demos show your store's actual Margin-at-Risk profile, live risk heatmap, and ROI-ranked intervention recommendations  using your own data and store layout context, not generic examples. See exactly how the platform recovers margin you are currently losing.</p>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <div class="contact-wrap">
+
+        <div class="contact-form">
+          <h3>Book Your Platform Demo</h3>
+          <p>Fill in your details and our team will contact you within 24 hours to arrange a personalised walkthrough.</p>
+          <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+            <input type="hidden" name="subject" value="New ShrinkGuard Twin AI Demo Request">
+            <input type="hidden" name="from_name" value="ShrinkGuard Twin AI Website">
+            <div class="form-group"><label>Full Name *</label><input type="text" name="name" placeholder="Your full name" required></div>
+            <div class="form-group"><label>Email Address *</label><input type="email" name="email" placeholder="your@business.co.uk" required></div>
+            <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" placeholder="+44 7XXX XXXXXX"></div>
+            <div class="form-group"><label>Business / Store Name</label><input type="text" name="business_name" placeholder="Your retail business name"></div>
+            <div class="form-group"><label>Business Type</label>
+              <select name="business_type">
+                <option>Independent Fashion Retailer</option>
+                <option>Footwear & Sportswear Retailer</option>
+                <option>Beauty & Cosmetics Retailer</option>
+                <option>Pharmacy & Health Products</option>
+                <option>Electronics Accessories Retailer</option>
+                <option>Convenience & Off-Licence</option>
+                <option>Discount & Variety Retailer</option>
+                <option>Other SME Retailer</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Number of Stores</label>
+              <select name="store_count">
+                <option>1 store</option>
+                <option>2–5 stores</option>
+                <option>6–10 stores</option>
+                <option>11–20 stores</option>
+              </select>
+            </div>
+            <div class="form-group"><label>What are you most interested in?</label><textarea name="message" placeholder="Tell us about your shrinkage challenges, current prevention tools, or features you'd like to explore..." required></textarea></div>
+            <button class="btn-primary" style="width:100%;justify-content:center;" type="submit">Request Demo →</button>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <h3>Why Book a Demo?</h3>
+          <p>Our personalised demos show your store's actual margin-at-risk profile, live risk zone heatmap, and ranked intervention recommendations  using your own retail context. We demonstrate how the Product–Zone–Time Risk Graph, Margin-at-Risk Engine, and Intervention ROI Optimiser work together to recover lost margin and give your business the financial precision it has never had.</p>
+          <div class="contact-detail"><div class="icon"><i class="fas fa-globe"></i></div><div class="text"><strong>Website</strong><span><a href="https://shrinkguardtwinai.co.uk" style="color:var(--navy-light);" target="_blank">shrinkguardtwinai.co.uk</a></span></div></div>
+          <div class="contact-detail"><div class="icon"><i class="fas fa-user-tie"></i></div><div class="text"><strong>Founder & CEO</strong><span>Hassan Asghar · MSc International Business, Ulster University UK</span></div></div>
+          <div class="contact-detail"><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div class="text"><strong>UK Headquarters</strong><span>United Kingdom</span></div></div>
+          <div class="contact-detail"><div class="icon"><i class="fas fa-clock"></i></div><div class="text"><strong>Response Time</strong><span>Within 24 hours · Mon–Fri 9am–6pm GMT</span></div></div>
+          <div class="contact-detail"><div class="icon"><i class="fas fa-certificate"></i></div><div class="text"><strong>IP Status</strong><span>UK Patent Application Filed · PCT International In Progress · UKIPO Trademark Registered</span></div></div>
+          <div class="contact-detail"><div class="icon"><i class="fas fa-shield-alt"></i></div><div class="text"><strong>Data Privacy</strong><span>UK GDPR · ICO Compliant · AES-256 Encryption · AWS Infrastructure</span></div></div>
+          <div class="contact-detail"><div class="icon"><i class="fas fa-rocket"></i></div><div class="text"><strong>Pilot Programme</strong><span>3 Months Free · Structured Feedback · Written Case Study</span></div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div><!-- end contact -->
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">ShrinkGuard Twin AI</div>
+        <p class="footer-desc">The UK's first predictive shrinkage intelligence platform for SME retailers. Protect Margin. Not Just Merchandise. Predict. Quantify. Recommend. Built for the independent retailer. Backed by a formally confirmed novel patent. Powered by financial intelligence  not guesswork.</p>
+        <div class="footer-badges">
+          <span class="footer-badge">UK GDPR Compliant</span>
+          <span class="footer-badge">ICO Registered</span>
+          <span class="footer-badge">Patent Pending</span>
+          <span class="footer-badge">Innovator Founder Visa</span>
+          <span class="footer-badge">No Hardware Required</span>
+          <span class="footer-badge">AWS Cloud Hosted</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-col">
+          <a onclick="showPage('platform')">Product–Zone–Time Risk Graph</a>
+          <a onclick="showPage('platform')">Store Layout Digital Twin</a>
+          <a onclick="showPage('platform')">Margin-at-Risk Engine</a>
+          <a onclick="showPage('platform')">Intervention ROI Optimiser</a>
+          <a onclick="showPage('platform')">Shrinkage Opportunity Score</a>
+          <a onclick="showPage('platform')">Selective Protection Recommender</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-col">
+          <a onclick="showPage('about')">About ShrinkGuard Twin AI</a>
+          <a onclick="showPage('about')">Hassan Asghar · Founder & CEO</a>
+          <a onclick="showPage('process')">How It Works</a>
+          <a onclick="showPage('faq')">FAQ</a>
+          <a onclick="showPage('market')">Market Analysis</a>
+          <a onclick="showPage('pricing')">Pricing & Plans</a>
+          <a onclick="showPage('contact')">Request a Demo</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-col">
+          <a onclick="showPage('platform')">Independent Fashion Retailers</a>
+          <a onclick="showPage('platform')">Footwear & Sportswear</a>
+          <a onclick="showPage('platform')">Beauty & Cosmetics</a>
+          <a onclick="showPage('platform')">Convenience & Off-Licence</a>
+          <a onclick="showPage('pricing')">Starter · £99/mo</a>
+          <a onclick="showPage('pricing')">Professional · £299/mo</a>
+          <a onclick="showPage('pricing')">Multi-Store · £499/store/mo</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-bar">
+      <p>© 2026 <span>ShrinkGuard Twin AI</span> · United Kingdom · UK GDPR Compliant · by Hassan Asghar · <a href="https://shrinkguardtwinai.co.uk" style="color:var(--gold);text-decoration:none;" target="_blank">shrinkguardtwinai.co.uk</a></p>
+      <div class="footer-bottom-links">
+        <a onclick="showPage('contact')">Privacy Policy</a>
+        <a onclick="showPage('contact')">Terms of Service</a>
+        <a onclick="showPage('contact')">Business Plan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg){pg.classList.add('active');}
+  const btn=document.getElementById('nav-'+name);
+  if(btn){btn.classList.add('active');}
+  window.scrollTo({top:0,behavior:'instant'});
+  if(name==='market'&&!window.marketChartsLoaded){initMarketCharts();window.marketChartsLoaded=true;}
+}
+function toggleCard(btn){
+  const card=btn.closest('.platform-card');
+  card.classList.toggle('open');
+  btn.innerHTML=card.classList.contains('open')?'Show Less':'Learn More';
+}
+function toggleFAQ(el){el.parentElement.classList.toggle('open');}
+function closeMobile(){
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+document.getElementById('hamburger').addEventListener('click',function(){
+  this.classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+
+const NVY='rgba(27,43,75,1)';
+const NVY2='rgba(27,43,75,0.7)';
+const NVY3='rgba(27,43,75,0.35)';
+const GLD='rgba(201,168,76,0.85)';
+const GLD2='rgba(201,168,76,0.45)';
+const GRID='rgba(27,43,75,0.07)';
+const MUTED='rgba(27,43,75,0.75)';
+
+Chart.defaults.font.family="'IBM Plex Mono', monospace";
+Chart.defaults.font.size=11;
+Chart.defaults.color=MUTED;
+
+function initMarketCharts(){
+  new Chart(document.getElementById('chartSector').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['Fashion & Boutiques','Footwear & Sportswear','Beauty & Cosmetics','Pharmacy & Health','Electronics Acc.','Convenience & Off-Lic.'],
+      datasets:[{label:'Estimated SME Businesses (UK)',data:[62000,18000,24000,14500,11000,89000],backgroundColor:[NVY,NVY2,NVY3,GLD,GLD2,'rgba(27,43,75,0.2)'],borderRadius:6,barPercentage:0.6}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:MUTED,font:{size:9}}},y:{grid:{color:GRID},ticks:{color:MUTED,callback:v=>v.toLocaleString()}}}}
+  });
+
+  new Chart(document.getElementById('chartRootCause').getContext('2d'),{
+    type:'doughnut',
+    data:{
+      labels:['Direct Theft Losses · £2.2bn (52.4%)','Security Investment · £1.8bn (42.9%)','Insurance Premiums · £0.2bn (4.8%)'],
+      datasets:[{data:[52.4,42.9,4.8],backgroundColor:[NVY,GLD,'rgba(58,123,247,0.7)'],borderColor:['rgba(27,43,75,0.9)','rgba(201,168,76,0.8)','rgba(58,123,247,0.6)'],borderWidth:1.5}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:10,font:{size:10}}}}}
+  });
+
+  new Chart(document.getElementById('chartRadar').getContext('2d'),{
+    type:'radar',
+    data:{
+      labels:['Digital Twin','Margin-at-Risk','ROI Optimiser','Layout Scoring','SME Pricing','No Hardware'],
+      datasets:[
+        {label:'ShrinkGuard Twin AI',data:[5,5,5,5,5,5],backgroundColor:'rgba(27,43,75,0.1)',borderColor:NVY,borderWidth:2,pointBackgroundColor:NVY},
+        {label:'Auror',data:[0,0,0,0,2,4],backgroundColor:'rgba(201,168,76,0.05)',borderColor:GLD,borderWidth:1.5,pointBackgroundColor:GLD},
+        {label:'Sensormatic / Checkpoint',data:[0,0,0,0,0,0],backgroundColor:'rgba(58,123,247,0.04)',borderColor:'rgba(58,123,247,0.5)',borderWidth:1.5,pointBackgroundColor:'rgba(58,123,247,0.5)'},
+        {label:'Lightspeed / Vend',data:[0,0,0,0,4,5],backgroundColor:'rgba(27,43,75,0.03)',borderColor:'rgba(27,43,75,0.35)',borderWidth:1.5,pointBackgroundColor:'rgba(27,43,75,0.35)'},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:14,font:{size:10}}}},scales:{r:{backgroundColor:'rgba(27,43,75,0.01)',grid:{color:GRID},pointLabels:{color:MUTED,font:{size:10}},ticks:{display:false},min:0,max:5}}}
+  });
+
+  new Chart(document.getElementById('chartGrowth').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['2020','2021','2022','2023','2024','YE Jun 2025'],
+      datasets:[
+        {label:'Shoplifting Offences (England & Wales)',data:[234000,265000,310000,382000,469788,529994],backgroundColor:NVY2,borderRadius:5,barPercentage:0.55},
+        {type:'line',label:'YoY Growth %',data:[null,13,17,23,23,13],borderColor:GLD,borderWidth:2,yAxisID:'y2',tension:0.4,pointBackgroundColor:GLD,fill:false}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:12,font:{size:10}}}},scales:{x:{grid:{color:GRID},ticks:{color:MUTED}},y:{grid:{color:GRID},ticks:{color:MUTED,callback:v=>v.toLocaleString()}},y2:{position:'right',grid:{display:false},ticks:{color:MUTED,callback:v=>v+'%'}}}}
+  });
+
+  new Chart(document.getElementById('chartPerf').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['High-risk SKU detection','Risk-zone heatmaps','Theft-risk time forecasting','Margin-at-risk analysis','Staff coverage optimisation','Refund anomaly detection','Intervention ROI recommendations','Customer friction reduction'],
+      datasets:[{label:'% of Retailers Requesting Feature (n=35)',data:[74,66,63,57,51,46,43,31],backgroundColor:NVY2,borderRadius:5,barPercentage:0.5}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:14,font:{size:10}}}},scales:{x:{grid:{color:GRID},ticks:{color:MUTED,font:{size:9}}},y:{grid:{color:GRID},ticks:{color:MUTED,callback:v=>v+'%'},max:100}}}
+  });
+}
+</script>
+</body>
+</html>
